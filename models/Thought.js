@@ -1,14 +1,18 @@
 const { Schema, model } = require('mongoose');
-const User = require('./User');
-const Reaction  = require('./Reaction');
 
-const thoughtSchema = new Schema ({
-  thoughtText: { type: String, require: true, length: [1-280]},
-  createdAt: {type: Date, default: Date.now},
-  username: [User],
-  reactions: [Reaction],
+const thoughtSchema = new Schema({
+  thoughtText: { type: String, require: true, length: [1 - 280] },
+  createdAt: { type: Date, default: Date.now },
+  username: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  reactions: {
+    type: Schema.Types.ObjectId,
+    ref: 'Reaction',
+  }
 });
 
-const Thought = mongoose.model('Thought', thoughtSchema);
+const Thought = model('Thought', thoughtSchema);
 
 module.exports = Thought;
